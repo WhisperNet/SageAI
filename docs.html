@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation - SageAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 80px;
+        height: calc(100vh - 100px);
+        overflow-y: auto;
+      }
+
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .sidebar::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 3px;
+      }
+
+      .sidebar-link {
+        display: block;
+        padding: 8px 16px;
+        color: #6b7280;
+        border-left: 3px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-link:hover {
+        color: #667eea;
+        background: #f3f4f6;
+        border-left-color: #667eea;
+      }
+
+      .sidebar-link.active {
+        color: #667eea;
+        background: #ede9fe;
+        border-left-color: #667eea;
+        font-weight: 600;
+      }
+
+      .content-section {
+        scroll-margin-top: 100px;
+      }
+
+      .code-block {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: 'Courier New', monospace;
+        position: relative;
+        overflow-x: auto;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 12px;
+      }
+
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateX(5px);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <a href="index.html" class="flex items-center space-x-2">
+            <div
+              class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-brain text-white"></i>
+            </div>
+            <span class="text-2xl font-bold gradient-text">SageAI</span>
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a href="docs.html" class="nav-link text-purple-600 font-medium"
+              >Docs</a
+            >
+            <a
+              href="api.html"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >API Reference</a
+            >
+            <a
+              href="quickstart.html"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >Quick Start</a
+            >
+            <a
+              href="quickstart.html#download"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >Download</a
+            >
+          </div>
+          <div class="flex items-center space-x-4">
+            <a
+              href="https://github.com/WhisperNet/research-paper-rag-assessment/tree/submission/ridowan"
+              target="_blank"
+              class="text-gray-700 hover:text-purple-600"
+            >
+              <i class="fab fa-github text-2xl"></i>
+            </a>
+            <a
+              href="index.html"
+              class="gradient-bg text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition"
+            >
+              Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Sidebar -->
+          <aside class="lg:w-64 flex-shrink-0">
+            <div class="sidebar bg-white rounded-2xl shadow-lg p-6">
+              <h3
+                class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4"
+              >
+                Documentation
+              </h3>
+              <nav class="space-y-1">
+                <a href="#overview" class="sidebar-link active">Overview</a>
+                <a href="#architecture" class="sidebar-link">Architecture</a>
+                <a href="#features" class="sidebar-link">Features</a>
+                <a href="#chat-interface" class="sidebar-link"
+                  >Chat Interface</a
+                >
+                <a href="#file-management" class="sidebar-link"
+                  >File Management</a
+                >
+                <a href="#analytics" class="sidebar-link"
+                  >Analytics & History</a
+                >
+                <a href="#service-health" class="sidebar-link"
+                  >Service Health</a
+                >
+                <a href="#configuration" class="sidebar-link">Configuration</a>
+                <a href="#environment" class="sidebar-link"
+                  >Environment Variables</a
+                >
+                <a href="#docker" class="sidebar-link">Docker Setup</a>
+                <a href="#troubleshooting" class="sidebar-link"
+                  >Troubleshooting</a
+                >
+                <a href="#faq" class="sidebar-link">FAQ</a>
+              </nav>
+            </div>
+          </aside>
+
+          <!-- Main Content -->
+          <main class="flex-1 min-w-0">
+            <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+              <!-- Overview -->
+              <section id="overview" class="content-section mb-16">
+                <h1 class="text-4xl font-black text-gray-900 mb-4">
+                  <span class="gradient-text">SageAI</span> Documentation
+                </h1>
+                <p class="text-xl text-gray-600 mb-6 leading-relaxed">
+                  Welcome to SageAI, your private research assistant powered by
+                  state-of-the-art RAG (Retrieval-Augmented Generation)
+                  technology. This documentation will guide you through every
+                  feature and capability.
+                </p>
+
+                <div
+                  class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 border border-purple-200"
+                >
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    What is SageAI?
+                  </h3>
+                  <p class="text-gray-700 mb-4">
+                    SageAI is a research paper assistant that runs entirely on
+                    your local machine. It combines vector search, natural
+                    language processing, and large language models to help you
+                    understand and analyze academic papers like never before.
+                  </p>
+                  <ul class="space-y-2 text-gray-700">
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>100% Private:</strong> Your data never leaves
+                      your machine
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>Offline Capable:</strong> Works without internet
+                      after setup
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>Context-Aware:</strong> Understands relationships
+                      across papers
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>Citation-Backed:</strong> Every answer includes
+                      sources
+                    </li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Architecture -->
+              <section id="architecture" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Architecture
+                </h2>
+
+                <div class="mb-8">
+                  <img
+                    src="https://via.placeholder.com/800x400/667eea/ffffff?text=Architecture+Diagram"
+                    alt="SageAI Architecture"
+                    class="rounded-xl shadow-lg w-full mb-4"
+                  />
+                  <p class="text-sm text-gray-500 text-center">
+                    SageAI System Architecture
+                  </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div
+                    class="bg-purple-50 rounded-xl p-6 border border-purple-200"
+                  >
+                    <h3 class="text-lg font-bold text-purple-900 mb-3">
+                      <i class="fas fa-server mr-2"></i>Backend Stack
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                      <li>
+                        <strong>Node.js + Express:</strong> REST API server
+                      </li>
+                      <li>
+                        <strong>MongoDB:</strong> Paper metadata & query history
+                      </li>
+                      <li><strong>Redis:</strong> Response caching</li>
+                      <li>
+                        <strong>Qdrant:</strong> Vector database for similarity
+                        search
+                      </li>
+                      <li><strong>Ollama:</strong> Local LLM inference</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                    <h3 class="text-lg font-bold text-blue-900 mb-3">
+                      <i class="fas fa-layer-group mr-2"></i>Frontend Stack
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                      <li><strong>React 18:</strong> UI framework</li>
+                      <li><strong>TypeScript:</strong> Type safety</li>
+                      <li><strong>Vite:</strong> Build tool</li>
+                      <li><strong>ShadCN UI:</strong> Component library</li>
+                      <li><strong>Tailwind CSS:</strong> Styling</li>
+                    </ul>
+                  </div>
+
+                  <div
+                    class="bg-green-50 rounded-xl p-6 border border-green-200"
+                  >
+                    <h3 class="text-lg font-bold text-green-900 mb-3">
+                      <i class="fas fa-robot mr-2"></i>Embedder Service
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                      <li><strong>Python + FastAPI:</strong> Async API</li>
+                      <li><strong>PyMuPDF:</strong> PDF parsing</li>
+                      <li><strong>fastembed:</strong> Text embeddings</li>
+                      <li>
+                        <strong>Section Detection:</strong> Smart chunking
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div
+                    class="bg-orange-50 rounded-xl p-6 border border-orange-200"
+                  >
+                    <h3 class="text-lg font-bold text-orange-900 mb-3">
+                      <i class="fas fa-docker mr-2"></i>Infrastructure
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                      <li><strong>Docker Compose:</strong> Orchestration</li>
+                      <li>
+                        <strong>Health Checks:</strong> Service monitoring
+                      </li>
+                      <li>
+                        <strong>Volume Persistence:</strong> Data retention
+                      </li>
+                      <li><strong>Network Isolation:</strong> Security</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Features -->
+              <section id="features" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Core Features
+                </h2>
+
+                <div class="space-y-6">
+                  <div
+                    class="feature-card bg-gradient-to-r from-purple-50 to-transparent rounded-xl p-6 border-l-4 border-purple-500"
+                  >
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">
+                      <i class="fas fa-comments text-purple-600 mr-2"></i
+                      >Natural Language Chat
+                    </h3>
+                    <p class="text-gray-700 mb-3">
+                      Ask questions in plain English. SageAI understands
+                      context, handles follow-ups, and provides detailed answers
+                      with confidence scores.
+                    </p>
+                    <div class="bg-white rounded-lg p-4 text-sm">
+                      <strong>Example:</strong> "What methodology did the
+                      transformer paper use?" → Get a detailed answer with
+                      citations to specific sections.
+                    </div>
+                  </div>
+
+                  <div
+                    class="feature-card bg-gradient-to-r from-blue-50 to-transparent rounded-xl p-6 border-l-4 border-blue-500"
+                  >
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">
+                      <i class="fas fa-search text-blue-600 mr-2"></i
+                      >Vector-Based Search
+                    </h3>
+                    <p class="text-gray-700 mb-3">
+                      Uses semantic similarity, not just keywords. Finds
+                      relevant content even when papers use different
+                      terminology.
+                    </p>
+                    <div class="bg-white rounded-lg p-4 text-sm">
+                      <strong>Top-K Selection:</strong> Control how many
+                      relevant chunks (1-10) to include in context.
+                    </div>
+                  </div>
+
+                  <div
+                    class="feature-card bg-gradient-to-r from-green-50 to-transparent rounded-xl p-6 border-l-4 border-green-500"
+                  >
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">
+                      <i class="fas fa-file-pdf text-green-600 mr-2"></i>Smart
+                      PDF Processing
+                    </h3>
+                    <p class="text-gray-700 mb-3">
+                      Automatically extracts text, detects sections (Abstract,
+                      Introduction, Methods, etc.), and chunks intelligently to
+                      preserve context.
+                    </p>
+                    <div class="bg-white rounded-lg p-4 text-sm">
+                      <strong>Supported:</strong> Multi-page PDFs, complex
+                      layouts, academic formatting.
+                    </div>
+                  </div>
+
+                  <div
+                    class="feature-card bg-gradient-to-r from-yellow-50 to-transparent rounded-xl p-6 border-l-4 border-yellow-500"
+                  >
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">
+                      <i class="fas fa-star text-yellow-600 mr-2"></i>Answer
+                      Rating System
+                    </h3>
+                    <p class="text-gray-700 mb-3">
+                      Rate responses from 1-5 stars. Your feedback helps track
+                      quality and identify areas for improvement.
+                    </p>
+                    <div class="bg-white rounded-lg p-4 text-sm">
+                      <strong>Confidence Scores:</strong> Every answer includes
+                      an AI-generated confidence level.
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Chat Interface -->
+              <section id="chat-interface" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Chat Interface
+                </h2>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                  <h3 class="text-lg font-bold text-gray-900 mb-4">
+                    How to Use
+                  </h3>
+                  <ol class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                      <span
+                        class="bg-purple-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 flex-shrink-0"
+                        >1</span
+                      >
+                      <span
+                        >Type your question in the composer at the bottom of the
+                        page</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <span
+                        class="bg-purple-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 flex-shrink-0"
+                        >2</span
+                      >
+                      <span
+                        >Optionally adjust Top-K (relevance) and select specific
+                        papers</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <span
+                        class="bg-purple-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 flex-shrink-0"
+                        >3</span
+                      >
+                      <span>Press Enter or click Send to get your answer</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span
+                        class="bg-purple-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 flex-shrink-0"
+                        >4</span
+                      >
+                      <span
+                        >View citations, rate the response, and ask follow-up
+                        questions</span
+                      >
+                    </li>
+                  </ol>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="bg-purple-50 rounded-xl p-6">
+                    <h4 class="font-bold text-gray-900 mb-3">
+                      <i class="fas fa-sliders-h text-purple-600 mr-2"></i>Top-K
+                      Selector
+                    </h4>
+                    <p class="text-sm text-gray-700 mb-3">
+                      Controls how many relevant chunks to include (1-10).
+                      Higher values give more context but may dilute relevance.
+                    </p>
+                    <div class="bg-white rounded p-3 text-xs">
+                      <strong>Recommended:</strong> Start with 5, adjust based
+                      on answer quality.
+                    </div>
+                  </div>
+
+                  <div class="bg-blue-50 rounded-xl p-6">
+                    <h4 class="font-bold text-gray-900 mb-3">
+                      <i class="fas fa-filter text-blue-600 mr-2"></i>Paper
+                      Filter
+                    </h4>
+                    <p class="text-sm text-gray-700 mb-3">
+                      Limit search to specific papers. Useful when comparing or
+                      focusing on particular research.
+                    </p>
+                    <div class="bg-white rounded p-3 text-xs">
+                      <strong>Default:</strong> "All papers" searches across
+                      your entire library.
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- File Management -->
+              <section id="file-management" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  File Management
+                </h2>
+
+                <div class="space-y-6">
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">
+                      Uploading Papers
+                    </h3>
+                    <div
+                      class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-200"
+                    >
+                      <ol class="space-y-3 text-gray-700">
+                        <li>
+                          <strong>1.</strong> Click the "Upload PDF" button in
+                          the sidebar
+                        </li>
+                        <li>
+                          <strong>2.</strong> Select your PDF file (up to 50MB
+                          recommended)
+                        </li>
+                        <li>
+                          <strong>3.</strong> Wait for processing—the embedder
+                          extracts text and creates chunks
+                        </li>
+                        <li>
+                          <strong>4.</strong> Once complete, the paper appears
+                          in your sidebar and is ready to query
+                        </li>
+                      </ol>
+                      <div class="mt-4 bg-white rounded-lg p-4">
+                        <p class="text-sm">
+                          <i class="fas fa-clock text-purple-600 mr-2"></i>
+                          <strong>Processing Time:</strong> ~30 seconds per
+                          paper (varies by length)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">
+                      Managing Papers
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                      <div
+                        class="bg-white border border-gray-200 rounded-xl p-4"
+                      >
+                        <h4 class="font-bold text-gray-900 mb-2">
+                          <i class="fas fa-trash text-red-500 mr-2"></i>Delete
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                          Click the delete icon next to any paper. This removes
+                          the paper, its chunks, and all vector embeddings.
+                        </p>
+                      </div>
+
+                      <div
+                        class="bg-white border border-gray-200 rounded-xl p-4"
+                      >
+                        <h4 class="font-bold text-gray-900 mb-2">
+                          <i class="fas fa-info-circle text-blue-500 mr-2"></i
+                          >View Stats
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                          See detailed stats in the "Paper Stats" page: chunk
+                          count, vector count, status, and indexed time.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Analytics -->
+              <section id="analytics" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Analytics & History
+                </h2>
+
+                <div class="space-y-6">
+                  <div
+                    class="bg-purple-50 rounded-xl p-6 border border-purple-200"
+                  >
+                    <h3 class="text-lg font-bold text-purple-900 mb-3">
+                      <i class="fas fa-history mr-2"></i>Query History
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                      Access all your past queries with timestamps, confidence
+                      scores, and ratings. Click "View answer" to see the full
+                      response again.
+                    </p>
+                    <div class="bg-white rounded-lg p-4 text-sm">
+                      <strong>Use Case:</strong> Review your research trail,
+                      find previous insights, or revisit interesting questions.
+                    </div>
+                  </div>
+
+                  <div class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                    <h3 class="text-lg font-bold text-blue-900 mb-3">
+                      <i class="fas fa-chart-bar mr-2"></i>Analytics Dashboard
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                      See aggregated insights about your research patterns:
+                    </p>
+                    <ul class="space-y-2 text-gray-700">
+                      <li>
+                        <i class="fas fa-arrow-right text-blue-600 mr-2"></i
+                        ><strong>Top Questions:</strong> Most frequently asked
+                        queries
+                      </li>
+                      <li>
+                        <i class="fas fa-arrow-right text-blue-600 mr-2"></i
+                        ><strong>Top Papers:</strong> Most referenced papers in
+                        answers
+                      </li>
+                      <li>
+                        <i class="fas fa-arrow-right text-blue-600 mr-2"></i
+                        ><strong>Usage Patterns:</strong> Query volume over time
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div
+                    class="bg-green-50 rounded-xl p-6 border border-green-200"
+                  >
+                    <h3 class="text-lg font-bold text-green-900 mb-3">
+                      <i class="fas fa-file-alt mr-2"></i>Paper Statistics
+                    </h3>
+                    <p class="text-gray-700">
+                      Detailed view of each paper's processing status, chunk
+                      count, vector embeddings, and metadata. Useful for
+                      debugging or understanding your library composition.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Service Health -->
+              <section id="service-health" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Service Health Monitoring
+                </h2>
+
+                <p class="text-gray-700 mb-6">
+                  The Service Health page provides real-time status of all
+                  system components. Each service is checked independently with
+                  color-coded status pills.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="bg-white border border-gray-200 rounded-xl p-6">
+                    <h4 class="font-bold text-gray-900 mb-3">
+                      <span
+                        class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"
+                      ></span>
+                      Healthy
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Service is running and responding correctly. All systems
+                      operational.
+                    </p>
+                  </div>
+
+                  <div class="bg-white border border-gray-200 rounded-xl p-6">
+                    <h4 class="font-bold text-gray-900 mb-3">
+                      <span
+                        class="inline-block w-3 h-3 bg-yellow-500 rounded-full mr-2"
+                      ></span>
+                      Degraded
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Service is responding slowly or partially. May impact
+                      performance.
+                    </p>
+                  </div>
+
+                  <div class="bg-white border border-gray-200 rounded-xl p-6">
+                    <h4 class="font-bold text-gray-900 mb-3">
+                      <span
+                        class="inline-block w-3 h-3 bg-red-500 rounded-full mr-2"
+                      ></span>
+                      Down
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Service is not responding. Check logs or restart the
+                      container.
+                    </p>
+                  </div>
+
+                  <div class="bg-white border border-gray-200 rounded-xl p-6">
+                    <h4 class="font-bold text-gray-900 mb-3">
+                      <span
+                        class="inline-block w-3 h-3 bg-gray-400 rounded-full mr-2"
+                      ></span>
+                      Unknown
+                    </h4>
+                    <p class="text-sm text-gray-600">
+                      Unable to determine status. May indicate network issues.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="mt-6 bg-blue-50 rounded-xl p-6 border border-blue-200"
+                >
+                  <h4 class="font-bold text-blue-900 mb-3">
+                    Monitored Services
+                  </h4>
+                  <ul class="space-y-2 text-sm text-gray-700">
+                    <li>
+                      <i class="fas fa-server text-blue-600 mr-2"></i>Backend
+                      API (liveness & readiness)
+                    </li>
+                    <li>
+                      <i class="fas fa-database text-blue-600 mr-2"></i>MongoDB
+                    </li>
+                    <li><i class="fas fa-bolt text-blue-600 mr-2"></i>Redis</li>
+                    <li>
+                      <i class="fas fa-vector-square text-blue-600 mr-2"></i
+                      >Qdrant
+                    </li>
+                    <li>
+                      <i class="fas fa-robot text-blue-600 mr-2"></i>Ollama
+                    </li>
+                    <li>
+                      <i class="fas fa-cog text-blue-600 mr-2"></i>Embedder
+                      Service
+                    </li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Configuration -->
+              <section id="configuration" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Configuration
+                </h2>
+
+                <div
+                  class="bg-yellow-50 rounded-xl p-6 border border-yellow-200 mb-6"
+                >
+                  <p class="text-gray-700">
+                    <i
+                      class="fas fa-exclamation-triangle text-yellow-600 mr-2"
+                    ></i>
+                    Most users won't need to change anything. The default Docker
+                    Compose configurations are production-ready and optimized
+                    for local use.
+                  </p>
+                </div>
+
+                <div class="space-y-6">
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">
+                      Docker Compose Variants
+                    </h3>
+                    <div class="overflow-x-auto">
+                      <table class="w-full text-sm">
+                        <thead class="bg-gray-100">
+                          <tr>
+                            <th class="px-4 py-3 text-left font-bold">File</th>
+                            <th class="px-4 py-3 text-left font-bold">OS</th>
+                            <th class="px-4 py-3 text-left font-bold">Mode</th>
+                            <th class="px-4 py-3 text-left font-bold">
+                              Use Case
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                          <tr class="border-t">
+                            <td class="px-4 py-3">
+                              <code>docker-compose.linux.dev.yml</code>
+                            </td>
+                            <td class="px-4 py-3">Linux</td>
+                            <td class="px-4 py-3">
+                              <span
+                                class="bg-blue-100 text-blue-800 px-2 py-1 rounded"
+                                >Dev</span
+                              >
+                            </td>
+                            <td class="px-4 py-3">
+                              Local development on Linux
+                            </td>
+                          </tr>
+                          <tr class="border-t">
+                            <td class="px-4 py-3">
+                              <code>docker-compose.mac-win.dev.yml</code>
+                            </td>
+                            <td class="px-4 py-3">Mac/Win</td>
+                            <td class="px-4 py-3">
+                              <span
+                                class="bg-blue-100 text-blue-800 px-2 py-1 rounded"
+                                >Dev</span
+                              >
+                            </td>
+                            <td class="px-4 py-3">
+                              Local development on macOS/Windows
+                            </td>
+                          </tr>
+                          <tr class="border-t">
+                            <td class="px-4 py-3">
+                              <code>docker-compose.linux.prod.yml</code>
+                            </td>
+                            <td class="px-4 py-3">Linux</td>
+                            <td class="px-4 py-3">
+                              <span
+                                class="bg-green-100 text-green-800 px-2 py-1 rounded"
+                                >Prod</span
+                              >
+                            </td>
+                            <td class="px-4 py-3">
+                              Production deployment on Linux
+                            </td>
+                          </tr>
+                          <tr class="border-t">
+                            <td class="px-4 py-3">
+                              <code>docker-compose.mac-win.prod.yml</code>
+                            </td>
+                            <td class="px-4 py-3">Mac/Win</td>
+                            <td class="px-4 py-3">
+                              <span
+                                class="bg-green-100 text-green-800 px-2 py-1 rounded"
+                                >Prod</span
+                              >
+                            </td>
+                            <td class="px-4 py-3">
+                              Production deployment on macOS/Windows
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Environment Variables -->
+              <section id="environment" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Environment Variables
+                </h2>
+
+                <p class="text-gray-700 mb-6">
+                  These are pre-configured in the Docker Compose files. Advanced
+                  users can customize them.
+                </p>
+
+                <div class="space-y-4">
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary
+                      class="font-bold cursor-pointer text-gray-900 flex items-center justify-between"
+                    >
+                      <span
+                        ><i class="fas fa-server text-purple-600 mr-2"></i
+                        >Backend Variables</span
+                      >
+                      <i class="fas fa-chevron-down text-gray-400"></i>
+                    </summary>
+                    <div class="mt-4 space-y-3 text-sm">
+                      <div class="code-block">
+                        <pre>
+API_PORT=8000                    # Backend port
+LOG_LEVEL=info                   # Logging verbosity
+MONGO_URI=mongodb://mongo:27017  # MongoDB connection
+QDRANT_URL=http://qdrant:6333    # Qdrant vector DB
+REDIS_URL=redis://redis:6379     # Redis cache
+OLLAMA_BASE_URL=http://...       # Ollama API endpoint
+EMBEDDER_URL=http://embedder:9100 # Embedder service
+RATE_LIMIT_WINDOW_MS=60000       # Rate limit window
+RATE_LIMIT_MAX=120               # Max requests per window</pre
+                        >
+                      </div>
+                    </div>
+                  </details>
+
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary
+                      class="font-bold cursor-pointer text-gray-900 flex items-center justify-between"
+                    >
+                      <span
+                        ><i class="fas fa-laptop-code text-blue-600 mr-2"></i
+                        >Frontend Variables (Vite)</span
+                      >
+                      <i class="fas fa-chevron-down text-gray-400"></i>
+                    </summary>
+                    <div class="mt-4 space-y-3 text-sm">
+                      <div class="code-block">
+                        <pre>
+VITE_API_BASE=http://localhost:8000      # Backend API base
+VITE_EMBEDDER_BASE=http://localhost:9100 # Embedder service base
+VITE_SERVICE_BASE=http://localhost:8000  # Service health checks</pre
+                        >
+                      </div>
+                    </div>
+                  </details>
+                </div>
+              </section>
+
+              <!-- Docker Setup -->
+              <section id="docker" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Docker Setup Details
+                </h2>
+
+                <div class="space-y-6">
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">
+                      Included Services
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                      <div class="bg-purple-50 rounded-lg p-4">
+                        <h4 class="font-bold text-purple-900 mb-2">MongoDB</h4>
+                        <p class="text-sm text-gray-700">
+                          Stores paper metadata, query history, and user ratings
+                        </p>
+                        <p class="text-xs text-gray-500 mt-2">
+                          Port: 27017 | Volume: mongo_data
+                        </p>
+                      </div>
+
+                      <div class="bg-blue-50 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-900 mb-2">Qdrant</h4>
+                        <p class="text-sm text-gray-700">
+                          Vector database for semantic similarity search
+                        </p>
+                        <p class="text-xs text-gray-500 mt-2">
+                          Port: 6333 | Volume: qdrant_data
+                        </p>
+                      </div>
+
+                      <div class="bg-red-50 rounded-lg p-4">
+                        <h4 class="font-bold text-red-900 mb-2">Redis</h4>
+                        <p class="text-sm text-gray-700">
+                          Caches responses for faster repeat queries
+                        </p>
+                        <p class="text-xs text-gray-500 mt-2">
+                          Port: 6379 | In-memory
+                        </p>
+                      </div>
+
+                      <div class="bg-green-50 rounded-lg p-4">
+                        <h4 class="font-bold text-green-900 mb-2">Embedder</h4>
+                        <p class="text-sm text-gray-700">
+                          Python service for PDF parsing and text embedding
+                        </p>
+                        <p class="text-xs text-gray-500 mt-2">
+                          Port: 9100 | Built from source
+                        </p>
+                      </div>
+
+                      <div class="bg-yellow-50 rounded-lg p-4">
+                        <h4 class="font-bold text-yellow-900 mb-2">Backend</h4>
+                        <p class="text-sm text-gray-700">
+                          Node.js REST API orchestrating all services
+                        </p>
+                        <p class="text-xs text-gray-500 mt-2">
+                          Port: 8000 | Built from source
+                        </p>
+                      </div>
+
+                      <div class="bg-indigo-50 rounded-lg p-4">
+                        <h4 class="font-bold text-indigo-900 mb-2">Frontend</h4>
+                        <p class="text-sm text-gray-700">
+                          React UI served via Nginx
+                        </p>
+                        <p class="text-xs text-gray-500 mt-2">
+                          Port: 8080 | Built from source
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">
+                      Useful Commands
+                    </h3>
+                    <div class="space-y-3">
+                      <div>
+                        <p class="text-sm text-gray-700 mb-2">
+                          Start all services (detached mode):
+                        </p>
+                        <div class="code-block">
+                          <button
+                            class="copy-btn"
+                            onclick="copyToClipboard('docker compose -f docker-compose.linux.dev.yml up -d', this)"
+                          >
+                            <i class="fas fa-copy"></i> Copy
+                          </button>
+                          <pre>
+docker compose -f docker-compose.linux.dev.yml up -d</pre
+                          >
+                        </div>
+                      </div>
+
+                      <div>
+                        <p class="text-sm text-gray-700 mb-2">View logs:</p>
+                        <div class="code-block">
+                          <button
+                            class="copy-btn"
+                            onclick="copyToClipboard('docker compose -f docker-compose.linux.dev.yml logs -f', this)"
+                          >
+                            <i class="fas fa-copy"></i> Copy
+                          </button>
+                          <pre>
+docker compose -f docker-compose.linux.dev.yml logs -f</pre
+                          >
+                        </div>
+                      </div>
+
+                      <div>
+                        <p class="text-sm text-gray-700 mb-2">
+                          Stop all services:
+                        </p>
+                        <div class="code-block">
+                          <button
+                            class="copy-btn"
+                            onclick="copyToClipboard('docker compose -f docker-compose.linux.dev.yml down', this)"
+                          >
+                            <i class="fas fa-copy"></i> Copy
+                          </button>
+                          <pre>
+docker compose -f docker-compose.linux.dev.yml down</pre
+                          >
+                        </div>
+                      </div>
+
+                      <div>
+                        <p class="text-sm text-gray-700 mb-2">
+                          Rebuild after code changes:
+                        </p>
+                        <div class="code-block">
+                          <button
+                            class="copy-btn"
+                            onclick="copyToClipboard('docker compose -f docker-compose.linux.dev.yml up --build', this)"
+                          >
+                            <i class="fas fa-copy"></i> Copy
+                          </button>
+                          <pre>
+docker compose -f docker-compose.linux.dev.yml up --build</pre
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Troubleshooting -->
+              <section id="troubleshooting" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Troubleshooting
+                </h2>
+
+                <div class="space-y-4">
+                  <details
+                    class="bg-red-50 border border-red-200 rounded-xl p-6 open:bg-red-50"
+                  >
+                    <summary class="font-bold cursor-pointer text-red-900">
+                      Ollama connection failed
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-700 space-y-2">
+                      <p>
+                        <strong>Symptoms:</strong> Backend logs show "Ollama not
+                        ready" or connection errors.
+                      </p>
+                      <p><strong>Solutions:</strong></p>
+                      <ul class="list-disc pl-6 space-y-1">
+                        <li>
+                          Ensure Ollama is running:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >ollama serve</code
+                          >
+                        </li>
+                        <li>
+                          Check if accessible:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >curl http://localhost:11434</code
+                          >
+                        </li>
+                        <li>
+                          On Linux: Use
+                          <code class="bg-white px-2 py-1 rounded"
+                            >docker-compose.linux.dev.yml</code
+                          >
+                          (host networking)
+                        </li>
+                        <li>
+                          On Mac/Windows: Make sure you're using
+                          <code class="bg-white px-2 py-1 rounded"
+                            >host.docker.internal</code
+                          >
+                          in the compose file
+                        </li>
+                      </ul>
+                    </div>
+                  </details>
+
+                  <details
+                    class="bg-yellow-50 border border-yellow-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-yellow-900">
+                      Port already in use
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-700 space-y-2">
+                      <p>
+                        <strong>Symptoms:</strong> Docker fails to start, says
+                        port is already allocated.
+                      </p>
+                      <p><strong>Solutions:</strong></p>
+                      <ul class="list-disc pl-6 space-y-1">
+                        <li>
+                          Find what's using the port:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >lsof -i :8080</code
+                          >
+                          (Mac/Linux) or
+                          <code class="bg-white px-2 py-1 rounded"
+                            >netstat -ano | findstr :8080</code
+                          >
+                          (Windows)
+                        </li>
+                        <li>
+                          Kill the process or modify the port in your compose
+                          file
+                        </li>
+                        <li>
+                          Common conflicts: Other dev servers, MongoDB
+                          instances, Redis
+                        </li>
+                      </ul>
+                    </div>
+                  </details>
+
+                  <details
+                    class="bg-blue-50 border border-blue-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-blue-900">
+                      PDF upload fails or hangs
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-700 space-y-2">
+                      <p>
+                        <strong>Symptoms:</strong> Upload progress bar stalls,
+                        or error message appears.
+                      </p>
+                      <p><strong>Solutions:</strong></p>
+                      <ul class="list-disc pl-6 space-y-1">
+                        <li>
+                          Check embedder service logs:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >docker logs rag_embedder</code
+                          >
+                        </li>
+                        <li>Ensure PDF is valid and not corrupted</li>
+                        <li>
+                          Large PDFs (>50MB) may take longer—wait patiently
+                        </li>
+                        <li>
+                          Check disk space:
+                          <code class="bg-white px-2 py-1 rounded">df -h</code>
+                        </li>
+                      </ul>
+                    </div>
+                  </details>
+
+                  <details
+                    class="bg-purple-50 border border-purple-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-purple-900">
+                      Slow or low-quality responses
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-700 space-y-2">
+                      <p>
+                        <strong>Symptoms:</strong> Answers take forever, or
+                        quality is poor.
+                      </p>
+                      <p><strong>Solutions:</strong></p>
+                      <ul class="list-disc pl-6 space-y-1">
+                        <li>
+                          Try a smaller model:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >ollama pull llama3.2:1b</code
+                          >
+                        </li>
+                        <li>
+                          Adjust Top-K slider to fewer chunks (e.g., 3 instead
+                          of 10)
+                        </li>
+                        <li>
+                          Check system resources: Ollama needs RAM (8GB+
+                          recommended)
+                        </li>
+                        <li>
+                          Clear Redis cache:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >docker exec rag_redis redis-cli FLUSHALL</code
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </details>
+
+                  <details
+                    class="bg-green-50 border border-green-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-green-900">
+                      Frontend shows "Cannot connect to backend"
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-700 space-y-2">
+                      <p>
+                        <strong>Symptoms:</strong> UI loads but shows connection
+                        errors.
+                      </p>
+                      <p><strong>Solutions:</strong></p>
+                      <ul class="list-disc pl-6 space-y-1">
+                        <li>
+                          Check if backend is running:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >curl http://localhost:8000/health/healthz</code
+                          >
+                        </li>
+                        <li>
+                          Verify environment variables in frontend build
+                          (VITE_API_BASE)
+                        </li>
+                        <li>
+                          Check CORS settings in backend if accessing from
+                          different domain
+                        </li>
+                        <li>
+                          Rebuild frontend:
+                          <code class="bg-white px-2 py-1 rounded"
+                            >docker compose ... up --build frontend</code
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </details>
+                </div>
+              </section>
+
+              <!-- FAQ -->
+              <section id="faq" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Frequently Asked Questions
+                </h2>
+
+                <div class="space-y-4">
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-gray-900">
+                      Do I need internet after setup?
+                    </summary>
+                    <p class="mt-3 text-gray-700">
+                      No! Once you've downloaded the Docker images and Ollama
+                      models, SageAI runs completely offline. Your data never
+                      leaves your machine.
+                    </p>
+                  </details>
+
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-gray-900">
+                      Can I use different LLM models?
+                    </summary>
+                    <p class="mt-3 text-gray-700">
+                      Yes! Pull any Ollama-compatible model and update the
+                      backend configuration. Popular choices:
+                      <code class="bg-gray-100 px-2 py-1 rounded">llama3</code>,
+                      <code class="bg-gray-100 px-2 py-1 rounded">mistral</code
+                      >,
+                      <code class="bg-gray-100 px-2 py-1 rounded"
+                        >codellama</code
+                      >.
+                    </p>
+                  </details>
+
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-gray-900">
+                      How much disk space do I need?
+                    </summary>
+                    <p class="mt-3 text-gray-700">
+                      Minimum 15GB free space. This includes Docker images
+                      (~5GB), Ollama models (~5GB), and room for your papers and
+                      vectors. More papers = more space needed.
+                    </p>
+                  </details>
+
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-gray-900">
+                      Is my data persistent?
+                    </summary>
+                    <p class="mt-3 text-gray-700">
+                      Yes! Docker volumes persist MongoDB (papers, queries) and
+                      Qdrant (vectors) data. Your data survives container
+                      restarts. To reset, use
+                      <code class="bg-gray-100 px-2 py-1 rounded"
+                        >docker compose down -v</code
+                      >.
+                    </p>
+                  </details>
+
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-gray-900">
+                      Can I deploy this to a server?
+                    </summary>
+                    <p class="mt-3 text-gray-700">
+                      Absolutely! Use the production compose files. Consider
+                      adding authentication, HTTPS (via reverse proxy like
+                      Nginx), and firewall rules. Perfect for lab servers or
+                      research group deployments.
+                    </p>
+                  </details>
+
+                  <details
+                    class="bg-white border border-gray-200 rounded-xl p-6"
+                  >
+                    <summary class="font-bold cursor-pointer text-gray-900">
+                      What paper formats are supported?
+                    </summary>
+                    <p class="mt-3 text-gray-700">
+                      Currently PDF only. The embedder uses PyMuPDF for robust
+                      text extraction. Works with most academic PDFs, including
+                      complex layouts and multi-column formats.
+                    </p>
+                  </details>
+                </div>
+              </section>
+
+              <!-- Footer CTA -->
+              <div class="gradient-bg rounded-2xl p-8 text-white text-center">
+                <h3 class="text-2xl font-bold mb-3">Need More Help?</h3>
+                <p class="mb-6 opacity-90">
+                  Join our community or check out the API reference for
+                  integration details.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                  <a
+                    href="api.html"
+                    class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+                  >
+                    API Reference
+                  </a>
+                  <a
+                    href="https://github.com"
+                    class="bg-white/20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition"
+                  >
+                    GitHub Community
+                  </a>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-brain text-white text-sm"></i>
+            </div>
+            <span class="text-xl font-bold text-white">SageAI</span>
+          </div>
+          <div class="text-sm">
+            © 2025 SageAI. Built with ❤️ for researchers.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Active sidebar link tracking
+      const sections = document.querySelectorAll('.content-section');
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '-100px 0px -66%',
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            sidebarLinks.forEach((link) => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => observer.observe(section));
+
+      // Smooth scrolling
+      sidebarLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalHTML = button.innerHTML;
+          button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          button.style.background = 'rgba(34, 197, 94, 0.2)';
+
+          setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.style.background = 'rgba(255, 255, 255, 0.1)';
+          }, 2000);
+        });
+      }
+    </script>
+  </body>
+</html>

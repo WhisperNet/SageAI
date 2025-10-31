@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Reference - SageAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 80px;
+        height: calc(100vh - 100px);
+        overflow-y: auto;
+      }
+
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .sidebar::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 3px;
+      }
+
+      .sidebar-link {
+        display: block;
+        padding: 8px 16px;
+        color: #6b7280;
+        border-left: 3px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-link:hover {
+        color: #667eea;
+        background: #f3f4f6;
+        border-left-color: #667eea;
+      }
+
+      .sidebar-link.active {
+        color: #667eea;
+        background: #ede9fe;
+        border-left-color: #667eea;
+        font-weight: 600;
+      }
+
+      .content-section {
+        scroll-margin-top: 100px;
+      }
+
+      .code-block {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: 'Courier New', monospace;
+        position: relative;
+        overflow-x: auto;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 12px;
+      }
+
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .method-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .method-get {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .method-post {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .method-delete {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .method-patch {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .param-required {
+        color: #dc2626;
+        font-size: 10px;
+        margin-left: 4px;
+      }
+
+      .endpoint-card {
+        transition: all 0.3s ease;
+      }
+
+      .endpoint-card:hover {
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <a href="index.html" class="flex items-center space-x-2">
+            <div
+              class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-brain text-white"></i>
+            </div>
+            <span class="text-2xl font-bold gradient-text">SageAI</span>
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="docs.html"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >Docs</a
+            >
+            <a href="api.html" class="nav-link text-purple-600 font-medium"
+              >API Reference</a
+            >
+            <a
+              href="quickstart.html"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >Quick Start</a
+            >
+            <a
+              href="quickstart.html#download"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >Download</a
+            >
+          </div>
+          <div class="flex items-center space-x-4">
+            <a
+              href="https://github.com/WhisperNet/research-paper-rag-assessment/tree/submission/ridowan"
+              target="_blank"
+              class="text-gray-700 hover:text-purple-600"
+            >
+              <i class="fab fa-github text-2xl"></i>
+            </a>
+            <a
+              href="index.html"
+              class="gradient-bg text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition"
+            >
+              Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Sidebar -->
+          <aside class="lg:w-64 flex-shrink-0">
+            <div class="sidebar bg-white rounded-2xl shadow-lg p-6">
+              <h3
+                class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4"
+              >
+                API Reference
+              </h3>
+              <nav class="space-y-1">
+                <a href="#overview" class="sidebar-link active">Overview</a>
+                <a href="#authentication" class="sidebar-link"
+                  >Authentication</a
+                >
+                <a href="#base-url" class="sidebar-link">Base URL</a>
+                <div
+                  class="mt-4 mb-2 text-xs font-bold text-gray-500 uppercase px-4"
+                >
+                  Endpoints
+                </div>
+                <a href="#query" class="sidebar-link">POST /query</a>
+                <a href="#papers-list" class="sidebar-link">GET /papers</a>
+                <a href="#papers-upload" class="sidebar-link"
+                  >POST /papers/upload</a
+                >
+                <a href="#papers-delete" class="sidebar-link"
+                  >DELETE /papers/:id</a
+                >
+                <a href="#papers-stats" class="sidebar-link"
+                  >GET /papers/:id/stats</a
+                >
+                <a href="#history" class="sidebar-link">GET /queries/history</a>
+                <a href="#rating" class="sidebar-link"
+                  >PATCH /queries/:id/rating</a
+                >
+                <a href="#analytics" class="sidebar-link"
+                  >GET /analytics/popular</a
+                >
+                <a href="#health" class="sidebar-link">GET /health/*</a>
+                <div
+                  class="mt-4 mb-2 text-xs font-bold text-gray-500 uppercase px-4"
+                >
+                  Resources
+                </div>
+                <a href="#errors" class="sidebar-link">Error Codes</a>
+                <a href="#rate-limits" class="sidebar-link">Rate Limits</a>
+                <a href="#examples" class="sidebar-link">Code Examples</a>
+              </nav>
+            </div>
+          </aside>
+
+          <!-- Main Content -->
+          <main class="flex-1 min-w-0">
+            <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+              <!-- Overview -->
+              <section id="overview" class="content-section mb-16">
+                <h1 class="text-4xl font-black text-gray-900 mb-4">
+                  <span class="gradient-text">API</span> Reference
+                </h1>
+                <p class="text-xl text-gray-600 mb-6 leading-relaxed">
+                  Complete API documentation for integrating with SageAI. Build
+                  custom interfaces, automation scripts, or integrate with your
+                  existing research tools.
+                </p>
+
+                <div
+                  class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200"
+                >
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    <i class="fas fa-bolt text-yellow-500 mr-2"></i>Quick Facts
+                  </h3>
+                  <ul class="space-y-2 text-gray-700">
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>Protocol:</strong> REST API over HTTP
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>Format:</strong> JSON request/response
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>Default Port:</strong> 8000
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i
+                      ><strong>API Version:</strong> v1
+                    </li>
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Authentication -->
+              <section id="authentication" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Authentication
+                </h2>
+                <div
+                  class="bg-yellow-50 rounded-xl p-6 border border-yellow-200"
+                >
+                  <p class="text-gray-700">
+                    <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+                    <strong>Current Version:</strong> SageAI runs locally
+                    without authentication. All endpoints are accessible without
+                    credentials. For production deployments, consider adding
+                    authentication via a reverse proxy.
+                  </p>
+                </div>
+              </section>
+
+              <!-- Base URL -->
+              <section id="base-url" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Base URL</h2>
+                <p class="text-gray-700 mb-4">
+                  All API endpoints are prefixed with:
+                </p>
+                <div class="code-block">
+                  <button
+                    class="copy-btn"
+                    onclick="copyToClipboard('http://localhost:8000/api/v1', this)"
+                  >
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                  <pre>http://localhost:8000/api/v1</pre>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">
+                  💡 If you change the port in Docker Compose, update the base
+                  URL accordingly.
+                </p>
+              </section>
+
+              <!-- POST /query -->
+              <section id="query" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Query Papers
+                    </h2>
+                    <span class="method-badge method-post">POST</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>POST /api/v1/query</pre>
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Submit a natural language question and receive an
+                    AI-generated answer with citations from your uploaded
+                    papers.
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    Request Body
+                  </h3>
+                  <div class="code-block mb-6">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('query-request').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="query-request">
+{
+  "question": "What methodology was used in the transformer paper?",
+  "top_k": 5,
+  "paper_ids": [1, 3]  // optional: limit to specific papers
+}</pre
+                    >
+                  </div>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    Parameters
+                  </h3>
+                  <table class="w-full text-sm mb-6">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th class="px-4 py-3 text-left font-bold">Parameter</th>
+                        <th class="px-4 py-3 text-left font-bold">Type</th>
+                        <th class="px-4 py-3 text-left font-bold">
+                          Description
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                      <tr>
+                        <td class="px-4 py-3">
+                          <code>question</code>
+                          <span class="param-required">*required</span>
+                        </td>
+                        <td class="px-4 py-3">string</td>
+                        <td class="px-4 py-3">
+                          The question to ask about your papers
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>top_k</code></td>
+                        <td class="px-4 py-3">integer</td>
+                        <td class="px-4 py-3">
+                          Number of relevant chunks to retrieve (1-10, default:
+                          5)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>paper_ids</code></td>
+                        <td class="px-4 py-3">array</td>
+                        <td class="px-4 py-3">
+                          Limit search to specific paper IDs (omit for all
+                          papers)
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('query-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="query-response">
+{
+  "answer": "The transformer paper uses a self-attention mechanism...",
+  "citations": [
+    {
+      "paper_title": "Attention is All You Need",
+      "section": "Methodology",
+      "page": 3,
+      "relevance_score": 0.89,
+      "chunk_text": "..."
+    }
+  ],
+  "sources_used": ["paper3_nlp_transformers.pdf"],
+  "confidence": 0.85,
+  "query_time_ms": 1250,
+  "cached": false
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- GET /papers -->
+              <section id="papers-list" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      List All Papers
+                    </h2>
+                    <span class="method-badge method-get">GET</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>GET /api/v1/papers</pre>
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Retrieve a list of all uploaded papers with metadata and
+                    processing status.
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('papers-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="papers-response">
+{
+  "papers": [
+    {
+      "id": 1,
+      "title": "Attention is All You Need",
+      "filename": "transformer_paper.pdf",
+      "status": "indexed",
+      "chunk_count": 42,
+      "vector_count": 42,
+      "upload_date": "2025-10-31T10:30:00Z",
+      "indexed_date": "2025-10-31T10:31:15Z",
+      "file_size_mb": 2.4
+    }
+  ],
+  "total": 1
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- POST /papers/upload -->
+              <section id="papers-upload" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Upload Paper
+                    </h2>
+                    <span class="method-badge method-post">POST</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>POST /api/v1/papers/upload</pre>
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Upload a PDF research paper. The embedder service will
+                    extract text, chunk it, and create vector embeddings for
+                    semantic search.
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Request</h3>
+                  <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                    <p class="text-sm text-gray-700">
+                      <strong>Content-Type:</strong>
+                      <code>multipart/form-data</code><br />
+                      <strong>Form Field:</strong> <code>file</code> (PDF file)
+                    </p>
+                  </div>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    Example (cURL)
+                  </h3>
+                  <div class="code-block mb-6">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('upload-curl').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="upload-curl">
+curl -X POST http://localhost:8000/api/v1/papers/upload \
+  -F "file=@/path/to/paper.pdf"</pre
+                    >
+                  </div>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('upload-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="upload-response">
+{
+  "paper_id": 5,
+  "title": "BERT: Pre-training of Deep Bidirectional Transformers",
+  "filename": "bert_paper.pdf",
+  "status": "processing",
+  "message": "Paper uploaded successfully. Processing in background."
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- DELETE /papers/:id -->
+              <section id="papers-delete" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Delete Paper
+                    </h2>
+                    <span class="method-badge method-delete">DELETE</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>DELETE /api/v1/papers/:id</pre>
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Remove a paper and all associated data (chunks, vectors,
+                    metadata).
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('delete-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="delete-response">
+{
+  "message": "Paper deleted successfully",
+  "paper_id": 5
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- GET /papers/:id/stats -->
+              <section id="papers-stats" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Paper Statistics
+                    </h2>
+                    <span class="method-badge method-get">GET</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>GET /api/v1/papers/:id/stats</pre>
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Get detailed statistics for a specific paper.
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('stats-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="stats-response">
+{
+  "paper_id": 1,
+  "title": "Attention is All You Need",
+  "filename": "transformer_paper.pdf",
+  "status": "indexed",
+  "chunk_count": 42,
+  "vector_count": 42,
+  "upload_date": "2025-10-31T10:30:00Z",
+  "indexed_date": "2025-10-31T10:31:15Z",
+  "processing_time_ms": 75000,
+  "file_size_mb": 2.4,
+  "sections": ["Abstract", "Introduction", "Methods", "Results", "Conclusion"],
+  "query_count": 87  // how many times this paper was referenced
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- GET /queries/history -->
+              <section id="history" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Query History
+                    </h2>
+                    <span class="method-badge method-get">GET</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>
+GET /api/v1/queries/history?limit=20&offset=0&include_answer=true</pre
+                    >
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Retrieve paginated query history with optional full answers.
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    Query Parameters
+                  </h3>
+                  <table class="w-full text-sm mb-6">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th class="px-4 py-3 text-left font-bold">Parameter</th>
+                        <th class="px-4 py-3 text-left font-bold">Type</th>
+                        <th class="px-4 py-3 text-left font-bold">
+                          Description
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                      <tr>
+                        <td class="px-4 py-3"><code>limit</code></td>
+                        <td class="px-4 py-3">integer</td>
+                        <td class="px-4 py-3">
+                          Results per page (default: 20)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>offset</code></td>
+                        <td class="px-4 py-3">integer</td>
+                        <td class="px-4 py-3">Skip N results (default: 0)</td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>include_answer</code></td>
+                        <td class="px-4 py-3">boolean</td>
+                        <td class="px-4 py-3">
+                          Include full answer text (default: false)
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('history-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="history-response">
+{
+  "queries": [
+    {
+      "query_id": "q_123",
+      "question": "What is self-attention?",
+      "timestamp": "2025-10-31T14:22:00Z",
+      "confidence": 0.92,
+      "rating": 5,
+      "query_time_ms": 1200,
+      "answer": "Self-attention is..."  // only if include_answer=true
+    }
+  ],
+  "total": 150,
+  "limit": 20,
+  "offset": 0
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- PATCH /queries/:id/rating -->
+              <section id="rating" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Rate Answer
+                    </h2>
+                    <span class="method-badge method-patch">PATCH</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>PATCH /api/v1/queries/:id/rating</pre>
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Submit a user rating (1-5 stars) for a query response.
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">
+                    Request Body
+                  </h3>
+                  <div class="code-block mb-6">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('rating-request').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="rating-request">
+{
+  "rating": 4
+}</pre
+                    >
+                  </div>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('rating-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="rating-response">
+{
+  "message": "Rating saved successfully",
+  "query_id": "q_123",
+  "rating": 4
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- GET /analytics/popular -->
+              <section id="analytics" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Popular Analytics
+                    </h2>
+                    <span class="method-badge method-get">GET</span>
+                  </div>
+
+                  <div class="code-block mb-6">
+                    <pre>GET /api/v1/analytics/popular</pre>
+                  </div>
+
+                  <p class="text-gray-700 mb-6">
+                    Get aggregated data on most queried topics and most
+                    referenced papers.
+                  </p>
+
+                  <h3 class="text-lg font-bold text-gray-900 mb-3">Response</h3>
+                  <div class="code-block">
+                    <button
+                      class="copy-btn"
+                      onclick="copyToClipboard(document.getElementById('analytics-response').textContent, this)"
+                    >
+                      <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <pre id="analytics-response">
+{
+  "top_questions": [
+    { "question": "What is self-attention?", "count": 15 },
+    { "question": "How does BERT work?", "count": 12 }
+  ],
+  "top_papers": [
+    { "paper_id": 1, "title": "Attention is All You Need", "reference_count": 45 },
+    { "paper_id": 3, "title": "BERT Paper", "reference_count": 38 }
+  ]
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- GET /health/* -->
+              <section id="health" class="content-section mb-16">
+                <div
+                  class="endpoint-card bg-white border-2 border-gray-200 rounded-xl p-8"
+                >
+                  <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">
+                      Health Checks
+                    </h2>
+                    <span class="method-badge method-get">GET</span>
+                  </div>
+
+                  <div class="space-y-6">
+                    <div>
+                      <h3 class="text-lg font-bold text-gray-900 mb-3">
+                        Liveness Check
+                      </h3>
+                      <div class="code-block mb-3">
+                        <pre>GET /api/v1/health/healthz</pre>
+                      </div>
+                      <p class="text-sm text-gray-600 mb-3">
+                        Returns 200 if the API server is alive.
+                      </p>
+                      <div class="code-block">
+                        <pre>{ "status": "ok" }</pre>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 class="text-lg font-bold text-gray-900 mb-3">
+                        Readiness Check
+                      </h3>
+                      <div class="code-block mb-3">
+                        <pre>GET /api/v1/health/readyz</pre>
+                      </div>
+                      <p class="text-sm text-gray-600 mb-3">
+                        Returns 200 if the API is ready to serve requests.
+                        Checks all dependencies.
+                      </p>
+                      <div class="code-block">
+                        <button
+                          class="copy-btn"
+                          onclick="copyToClipboard(document.getElementById('health-response').textContent, this)"
+                        >
+                          <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <pre id="health-response">
+{
+  "status": "ready",
+  "dependencies": {
+    "mongo": { "status": "healthy", "response_time_ms": 5 },
+    "redis": { "status": "healthy", "response_time_ms": 2 },
+    "qdrant": { "status": "healthy", "response_time_ms": 10 },
+    "ollama": { "status": "healthy", "response_time_ms": 50 }
+  }
+}</pre
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Error Codes -->
+              <section id="errors" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Error Codes
+                </h2>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead class="bg-gray-100">
+                      <tr>
+                        <th class="px-4 py-3 text-left font-bold">Code</th>
+                        <th class="px-4 py-3 text-left font-bold">Status</th>
+                        <th class="px-4 py-3 text-left font-bold">
+                          Description
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                      <tr>
+                        <td class="px-4 py-3"><code>400</code></td>
+                        <td class="px-4 py-3">Bad Request</td>
+                        <td class="px-4 py-3">
+                          Invalid parameters or malformed request
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>404</code></td>
+                        <td class="px-4 py-3">Not Found</td>
+                        <td class="px-4 py-3">
+                          Paper or query ID doesn't exist
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>413</code></td>
+                        <td class="px-4 py-3">Payload Too Large</td>
+                        <td class="px-4 py-3">PDF file exceeds size limit</td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>429</code></td>
+                        <td class="px-4 py-3">Too Many Requests</td>
+                        <td class="px-4 py-3">Rate limit exceeded</td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>500</code></td>
+                        <td class="px-4 py-3">Internal Server Error</td>
+                        <td class="px-4 py-3">
+                          Something went wrong on the server
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="px-4 py-3"><code>503</code></td>
+                        <td class="px-4 py-3">Service Unavailable</td>
+                        <td class="px-4 py-3">
+                          Dependent service (Ollama, Qdrant, etc.) is down
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div
+                  class="mt-6 bg-red-50 rounded-xl p-6 border border-red-200"
+                >
+                  <h4 class="font-bold text-red-900 mb-3">
+                    Error Response Format
+                  </h4>
+                  <div class="code-block">
+                    <pre>
+{
+  "error": "Invalid top_k value",
+  "message": "top_k must be between 1 and 10",
+  "code": 400
+}</pre
+                    >
+                  </div>
+                </div>
+              </section>
+
+              <!-- Rate Limits -->
+              <section id="rate-limits" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Rate Limits
+                </h2>
+
+                <div
+                  class="bg-yellow-50 rounded-xl p-6 border border-yellow-200 mb-6"
+                >
+                  <h3 class="text-lg font-bold text-yellow-900 mb-3">
+                    Default Limits
+                  </h3>
+                  <ul class="space-y-2 text-gray-700">
+                    <li>
+                      <i class="fas fa-hourglass-half text-yellow-600 mr-2"></i
+                      ><strong>Window:</strong> 60 seconds
+                    </li>
+                    <li>
+                      <i class="fas fa-hashtag text-yellow-600 mr-2"></i
+                      ><strong>Max Requests:</strong> 120 per window
+                    </li>
+                    <li>
+                      <i class="fas fa-cog text-yellow-600 mr-2"></i
+                      ><strong>Configurable:</strong> Via RATE_LIMIT_*
+                      environment variables
+                    </li>
+                  </ul>
+                </div>
+
+                <p class="text-gray-700 mb-4">
+                  When rate limit is exceeded, you'll receive:
+                </p>
+                <div class="code-block">
+                  <pre>
+{
+  "error": "Rate limit exceeded",
+  "message": "Too many requests. Please try again in 30 seconds.",
+  "code": 429,
+  "retry_after": 30
+}</pre
+                  >
+                </div>
+              </section>
+
+              <!-- Code Examples -->
+              <section id="examples" class="content-section mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">
+                  Code Examples
+                </h2>
+
+                <div class="space-y-8">
+                  <!-- JavaScript Example -->
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">
+                      <i class="fab fa-js-square text-yellow-500 mr-2"></i
+                      >JavaScript (Fetch)
+                    </h3>
+                    <div class="code-block">
+                      <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(document.getElementById('js-example').textContent, this)"
+                      >
+                        <i class="fas fa-copy"></i> Copy
+                      </button>
+                      <pre id="js-example">
+// Query papers
+async function queryPapers(question, topK = 5) {
+  const response = await fetch('http://localhost:8000/api/v1/query', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question, top_k: topK })
+  });
+  
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  
+  const data = await response.json();
+  console.log('Answer:', data.answer);
+  console.log('Confidence:', data.confidence);
+  return data;
+}
+
+// Usage
+queryPapers('What is self-attention?')
+  .then(result => console.log(result))
+  .catch(error => console.error('Error:', error));</pre
+                      >
+                    </div>
+                  </div>
+
+                  <!-- Python Example -->
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">
+                      <i class="fab fa-python text-blue-600 mr-2"></i>Python
+                      (Requests)
+                    </h3>
+                    <div class="code-block">
+                      <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(document.getElementById('py-example').textContent, this)"
+                      >
+                        <i class="fas fa-copy"></i> Copy
+                      </button>
+                      <pre id="py-example">
+import requests
+
+BASE_URL = "http://localhost:8000/api/v1"
+
+# Query papers
+def query_papers(question, top_k=5, paper_ids=None):
+    payload = {
+        "question": question,
+        "top_k": top_k
+    }
+    if paper_ids:
+        payload["paper_ids"] = paper_ids
+    
+    response = requests.post(f"{BASE_URL}/query", json=payload)
+    response.raise_for_status()
+    return response.json()
+
+# Upload paper
+def upload_paper(file_path):
+    with open(file_path, 'rb') as f:
+        files = {'file': f}
+        response = requests.post(f"{BASE_URL}/papers/upload", files=files)
+        response.raise_for_status()
+        return response.json()
+
+# Usage
+result = query_papers("What is self-attention?")
+print(f"Answer: {result['answer']}")
+print(f"Confidence: {result['confidence']}")</pre
+                      >
+                    </div>
+                  </div>
+
+                  <!-- cURL Example -->
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">
+                      <i class="fas fa-terminal text-green-600 mr-2"></i>cURL
+                    </h3>
+                    <div class="code-block">
+                      <button
+                        class="copy-btn"
+                        onclick="copyToClipboard(document.getElementById('curl-example').textContent, this)"
+                      >
+                        <i class="fas fa-copy"></i> Copy
+                      </button>
+                      <pre id="curl-example">
+# Query papers
+curl -X POST http://localhost:8000/api/v1/query \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "What is self-attention?",
+    "top_k": 5
+  }'
+
+# Upload paper
+curl -X POST http://localhost:8000/api/v1/papers/upload \
+  -F "file=@/path/to/paper.pdf"
+
+# Get query history
+curl "http://localhost:8000/api/v1/queries/history?limit=10&include_answer=true"
+
+# Health check
+curl http://localhost:8000/api/v1/health/readyz</pre
+                      >
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Footer CTA -->
+              <div class="gradient-bg rounded-2xl p-8 text-white text-center">
+                <h3 class="text-2xl font-bold mb-3">Ready to Integrate?</h3>
+                <p class="mb-6 opacity-90">
+                  Start building with SageAI's powerful API. Questions? Check
+                  the docs or join our community.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                  <a
+                    href="quickstart.html"
+                    class="bg-white text-purple-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
+                  >
+                    Get Started
+                  </a>
+                  <a
+                    href="https://github.com"
+                    class="bg-white/20 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/30 transition"
+                  >
+                    View on GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 mt-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-brain text-white text-sm"></i>
+            </div>
+            <span class="text-xl font-bold text-white">SageAI</span>
+          </div>
+          <div class="text-sm">
+            © 2025 SageAI. Built with ❤️ for researchers.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Active sidebar link tracking
+      const sections = document.querySelectorAll('.content-section');
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '-100px 0px -66%',
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            sidebarLinks.forEach((link) => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => observer.observe(section));
+
+      // Smooth scrolling
+      sidebarLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalHTML = button.innerHTML;
+          button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          button.style.background = 'rgba(34, 197, 94, 0.2)';
+
+          setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.style.background = 'rgba(255, 255, 255, 0.1)';
+          }, 2000);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quick Start - SageAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        font-family: 'Inter', sans-serif;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .code-block {
+        background: #1e1e1e;
+        color: #d4d4d4;
+        padding: 20px;
+        border-radius: 10px;
+        font-family: 'Courier New', monospace;
+        position: relative;
+        overflow-x: auto;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .step-number {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+
+      .os-tab {
+        padding: 12px 24px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .os-tab.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .os-tab:not(.active) {
+        background: #f3f4f6;
+        color: #4b5563;
+      }
+
+      .os-tab:not(.active):hover {
+        background: #e5e7eb;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .download-card {
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+      }
+
+      .download-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <a href="index.html" class="flex items-center space-x-2">
+            <div
+              class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-brain text-white"></i>
+            </div>
+            <span class="text-2xl font-bold gradient-text">SageAI</span>
+          </a>
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="docs.html"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >Docs</a
+            >
+            <a
+              href="api.html"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >API Reference</a
+            >
+            <a
+              href="quickstart.html"
+              class="nav-link text-purple-600 font-medium"
+              >Quick Start</a
+            >
+            <a
+              href="#download"
+              class="nav-link text-gray-700 hover:text-purple-600 font-medium"
+              >Download</a
+            >
+          </div>
+          <div class="flex items-center space-x-4">
+            <a
+              href="https://github.com/WhisperNet/research-paper-rag-assessment/tree/submission/ridowan"
+              target="_blank"
+              class="text-gray-700 hover:text-purple-600"
+            >
+              <i class="fab fa-github text-2xl"></i>
+            </a>
+            <a
+              href="index.html"
+              class="gradient-bg text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition"
+            >
+              Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-12 gradient-bg text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-5xl md:text-6xl font-black mb-6">
+          Get Started in <span class="text-yellow-300">30 Seconds</span>
+        </h1>
+        <p class="text-xl opacity-90 max-w-3xl mx-auto">
+          Follow these simple steps to have SageAI running on your machine. No
+          complex setup, no cloud accounts, just pure local AI power.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Prerequisites -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-12">
+          <div class="flex items-start">
+            <i class="fas fa-info-circle text-blue-500 text-2xl mr-4 mt-1"></i>
+            <div>
+              <h3 class="text-xl font-bold text-blue-900 mb-2">
+                Prerequisites
+              </h3>
+              <ul class="space-y-2 text-blue-800">
+                <li>
+                  <i class="fas fa-check mr-2"></i>Docker & Docker Compose
+                  installed
+                </li>
+                <li>
+                  <i class="fas fa-check mr-2"></i>Ollama installed locally
+                  (we'll show you how)
+                </li>
+                <li>
+                  <i class="fas fa-check mr-2"></i>At least 8GB RAM (16GB
+                  recommended)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Install Ollama -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <div class="flex items-start space-x-4 mb-6">
+            <div class="step-number">1</div>
+            <div>
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                Install Ollama
+              </h2>
+              <p class="text-gray-600">
+                Ollama runs your AI models locally. Choose your operating
+                system:
+              </p>
+            </div>
+          </div>
+
+          <!-- OS Tabs -->
+          <div class="flex space-x-4 mb-6 overflow-x-auto pb-2">
+            <button class="os-tab active" onclick="switchTab('linux')">
+              <i class="fab fa-linux mr-2"></i>Linux
+            </button>
+            <button class="os-tab" onclick="switchTab('mac')">
+              <i class="fab fa-apple mr-2"></i>macOS
+            </button>
+            <button class="os-tab" onclick="switchTab('windows')">
+              <i class="fab fa-windows mr-2"></i>Windows
+            </button>
+          </div>
+
+          <!-- Linux Tab -->
+          <div id="linux-tab" class="tab-content active">
+            <p class="text-gray-700 mb-4">
+              Run this single command in your terminal:
+            </p>
+            <div class="code-block">
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('curl -fsSL https://ollama.com/install.sh | sh', this)"
+              >
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <pre>curl -fsSL https://ollama.com/install.sh | sh</pre>
+            </div>
+            <p class="text-sm text-gray-600 mt-4">
+              <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+              <strong>Note:</strong> On most Linux distributions, Ollama will
+              automatically start as a service.
+            </p>
+          </div>
+
+          <!-- macOS Tab -->
+          <div id="mac-tab" class="tab-content">
+            <p class="text-gray-700 mb-4">
+              <strong>Option 1:</strong> Using Homebrew (recommended)
+            </p>
+            <div class="code-block mb-4">
+              <button
+                class="copy-btn"
+                onclick="copyToClipboard('brew install ollama', this)"
+              >
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <pre>brew install ollama</pre>
+            </div>
+
+            <p class="text-gray-700 mb-4">
+              <strong>Option 2:</strong> Download the installer
+            </p>
+            <a
+              href="https://ollama.com/download/mac"
+              target="_blank"
+              class="inline-flex items-center gradient-bg text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition"
+            >
+              <i class="fas fa-download mr-2"></i>Download for macOS
+            </a>
+
+            <p class="text-sm text-gray-600 mt-4">
+              <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+              <strong>Tip:</strong> After installation, start Ollama from
+              Applications or run
+              <code class="bg-gray-100 px-2 py-1 rounded">ollama serve</code>
+            </p>
+          </div>
+
+          <!-- Windows Tab -->
+          <div id="windows-tab" class="tab-content">
+            <p class="text-gray-700 mb-4">
+              Download and run the Windows installer:
+            </p>
+            <a
+              href="https://ollama.com/download/windows"
+              target="_blank"
+              class="inline-flex items-center gradient-bg text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition mb-4"
+            >
+              <i class="fas fa-download mr-2"></i>Download for Windows
+            </a>
+
+            <p class="text-sm text-gray-600 mt-4">
+              <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+              <strong>Note:</strong> Ollama will run in the system tray after
+              installation. It starts automatically on boot.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2: Pull Model -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <div class="flex items-start space-x-4 mb-6">
+            <div class="step-number">2</div>
+            <div>
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                Pull the LLM Model
+              </h2>
+              <p class="text-gray-600">
+                Download the Llama 3 model (recommended for best results):
+              </p>
+            </div>
+          </div>
+
+          <div class="code-block mb-4">
+            <button
+              class="copy-btn"
+              onclick="copyToClipboard('ollama pull llama3:latest', this)"
+            >
+              <i class="fas fa-copy"></i> Copy
+            </button>
+            <pre>ollama pull llama3:latest</pre>
+          </div>
+
+          <div
+            class="bg-purple-50 border border-purple-200 rounded-lg p-4 mt-4"
+          >
+            <h4 class="font-bold text-purple-900 mb-2">
+              <i class="fas fa-lightbulb mr-2"></i>Model Options
+            </h4>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-gray-700"
+                  ><code class="bg-white px-2 py-1 rounded">llama3:latest</code>
+                  - Full model</span
+                >
+                <span class="text-gray-500">~4.7GB</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-700"
+                  ><code class="bg-white px-2 py-1 rounded">llama3.2:1b</code> -
+                  Smaller, faster</span
+                >
+                <span class="text-gray-500">~1.3GB</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-700"
+                  ><code class="bg-white px-2 py-1 rounded">llama3.2:3b</code> -
+                  Balanced</span
+                >
+                <span class="text-gray-500">~2GB</span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-600 mt-3">
+              💡 For slower machines, try the smaller models. For best quality,
+              use llama3:latest.
+            </p>
+          </div>
+
+          <div class="mt-6">
+            <p class="text-sm text-gray-600">
+              <i class="fas fa-clock text-purple-500 mr-2"></i>
+              This will take a few minutes depending on your internet speed. Go
+              grab a coffee! ☕
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3: Download Compose -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8" id="download">
+          <div class="flex items-start space-x-4 mb-6">
+            <div class="step-number">3</div>
+            <div>
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                Download Docker Compose File
+              </h2>
+              <p class="text-gray-600">
+                Choose the configuration that matches your setup:
+              </p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Development Configs -->
+            <div
+              class="download-card bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-gray-900">
+                  Development Mode
+                </h3>
+                <span
+                  class="bg-blue-500 text-white text-xs px-3 py-1 rounded-full"
+                  >DEV</span
+                >
+              </div>
+              <p class="text-gray-600 text-sm mb-4">
+                For local development with hot-reload and debugging enabled.
+              </p>
+
+              <div class="space-y-3">
+                <a
+                  href="resources/docker-compose.linux.dev.yml"
+                  download
+                  class="flex items-center justify-between bg-white p-3 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <div class="flex items-center">
+                    <i class="fab fa-linux text-2xl text-gray-700 mr-3"></i>
+                    <span class="font-medium">Linux Dev</span>
+                  </div>
+                  <i class="fas fa-download text-purple-600"></i>
+                </a>
+
+                <a
+                  href="resources/docker-compose.mac-win.dev.yml"
+                  download
+                  class="flex items-center justify-between bg-white p-3 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <div class="flex items-center">
+                    <i class="fab fa-apple text-2xl text-gray-700 mr-3"></i>
+                    <i class="fab fa-windows text-2xl text-gray-700 mr-3"></i>
+                    <span class="font-medium">Mac/Win Dev</span>
+                  </div>
+                  <i class="fas fa-download text-purple-600"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Production Configs -->
+            <div
+              class="download-card bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-6"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-gray-900">Production Mode</h3>
+                <span
+                  class="bg-green-500 text-white text-xs px-3 py-1 rounded-full"
+                  >PROD</span
+                >
+              </div>
+              <p class="text-gray-600 text-sm mb-4">
+                Optimized builds for production deployment.
+              </p>
+
+              <div class="space-y-3">
+                <a
+                  href="resources/docker-compose.linux.prod.yml"
+                  download
+                  class="flex items-center justify-between bg-white p-3 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <div class="flex items-center">
+                    <i class="fab fa-linux text-2xl text-gray-700 mr-3"></i>
+                    <span class="font-medium">Linux Prod</span>
+                  </div>
+                  <i class="fas fa-download text-purple-600"></i>
+                </a>
+
+                <a
+                  href="resources/docker-compose.mac-win.prod.yml"
+                  download
+                  class="flex items-center justify-between bg-white p-3 rounded-lg hover:bg-gray-50 transition"
+                >
+                  <div class="flex items-center">
+                    <i class="fab fa-apple text-2xl text-gray-700 mr-3"></i>
+                    <i class="fab fa-windows text-2xl text-gray-700 mr-3"></i>
+                    <span class="font-medium">Mac/Win Prod</span>
+                  </div>
+                  <i class="fas fa-download text-purple-600"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-gray-50 rounded-lg p-4">
+            <h4 class="font-bold text-gray-900 mb-2">
+              <i class="fas fa-question-circle text-purple-600 mr-2"></i>Which
+              one should I choose?
+            </h4>
+            <ul class="space-y-2 text-sm text-gray-700">
+              <li>
+                <strong>Linux:</strong> Uses host networking for better Ollama
+                integration
+              </li>
+              <li>
+                <strong>Mac/Windows:</strong> Uses Docker bridge networking with
+                host.docker.internal
+              </li>
+              <li>
+                <strong>Dev:</strong> Includes hot-reload, debug mode, and
+                verbose logging
+              </li>
+              <li>
+                <strong>Prod:</strong> Optimized builds, minified assets,
+                production-ready
+              </li>
+            </ul>
+            <p class="text-sm text-gray-600 mt-3">
+              💡 <strong>Recommendation:</strong> Start with the Dev version for
+              your OS. It's easier to debug!
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4: Clone Repository (Dev Mode) -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <div class="flex items-start space-x-4 mb-6">
+            <div class="step-number">4</div>
+            <div>
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                Clone the Repository
+              </h2>
+              <p class="text-gray-600">
+                For <strong>Dev mode</strong>, you need to clone the repository
+                to build the services locally. For <strong>Prod mode</strong>,
+                you can skip to Step 5 and just download the compose file.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <h4 class="font-bold text-blue-900 mb-2">
+              <i class="fas fa-info-circle mr-2"></i>Dev vs Prod Mode
+            </h4>
+            <ul class="space-y-2 text-sm text-blue-800">
+              <li>
+                <strong>Dev Mode:</strong> Builds services from source (requires
+                git clone)
+              </li>
+              <li>
+                <strong>Prod Mode:</strong> Uses pre-built Docker images (no git
+                clone needed)
+              </li>
+            </ul>
+          </div>
+
+          <div class="code-block mb-4">
+            <button
+              class="copy-btn"
+              onclick="copyToClipboard('git clone --branch submission/ridowan https://github.com/WhisperNet/research-paper-rag-assessment.git', this)"
+            >
+              <i class="fas fa-copy"></i> Copy
+            </button>
+            <pre>
+# Clone the repository
+git clone --branch submission/ridowan https://github.com/WhisperNet/research-paper-rag-assessment.git
+
+# Navigate to the project directory
+cd research-paper-rag-assessment</pre
+            >
+          </div>
+
+          <p class="text-sm text-gray-600">
+            💡 <strong>Note:</strong> This step is only required if you're using
+            Dev compose files. Production files use pre-built images and don't
+            need the source code.
+          </p>
+        </div>
+
+        <!-- Step 5: Launch -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <div class="flex items-start space-x-4 mb-6">
+            <div class="step-number">5</div>
+            <div>
+              <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                Launch SageAI
+              </h2>
+              <p class="text-gray-600">
+                Navigate to the
+                <code class="bg-gray-100 px-2 py-1 rounded">resources</code>
+                folder and run the compose file:
+              </p>
+            </div>
+          </div>
+
+          <div class="code-block mb-4">
+            <button
+              class="copy-btn"
+              onclick="copyToClipboard('cd resources && docker compose -f docker-compose.linux.dev.yml up --build', this)"
+            >
+              <i class="fas fa-copy"></i> Copy
+            </button>
+            <pre>
+# Navigate to resources folder
+cd resources
+
+# For Linux Dev
+docker compose -f docker-compose.linux.dev.yml up --build
+
+# Or for Mac/Windows Dev
+docker compose -f docker-compose.mac-win.dev.yml up --build
+
+# Or for Production (any OS)
+docker compose -f docker-compose.linux.prod.yml up -d
+docker compose -f docker-compose.mac-win.prod.yml up -d</pre
+            >
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+            <h4 class="font-bold text-green-900 mb-2">
+              <i class="fas fa-check-circle mr-2"></i>What happens next?
+            </h4>
+            <ul class="space-y-2 text-sm text-green-800">
+              <li>✓ Docker pulls necessary images (MongoDB, Qdrant, Redis)</li>
+              <li>✓ Builds the backend API and embedder service</li>
+              <li>✓ Builds the React frontend</li>
+              <li>✓ Connects all services together</li>
+              <li>✓ Verifies Ollama is running on your host</li>
+            </ul>
+            <p class="text-sm mt-3 font-semibold">
+              ⏱️ First build takes 3-5 minutes. Subsequent starts are under 30
+              seconds!
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 6: Access -->
+        <div
+          class="bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl shadow-2xl p-8 text-white"
+        >
+          <div class="flex items-start space-x-4 mb-6">
+            <div
+              class="bg-white text-purple-600 w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl flex-shrink-0"
+            >
+              6
+            </div>
+            <div>
+              <h2 class="text-3xl font-bold mb-2">🎉 You're Ready!</h2>
+              <p class="text-lg opacity-90">
+                Open your browser and navigate to:
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6">
+            <div class="flex items-center justify-between">
+              <a
+                href="http://localhost:8080"
+                target="_blank"
+                class="text-2xl font-bold hover:text-yellow-300 transition"
+              >
+                http://localhost:8080
+              </a>
+              <button
+                onclick="copyToClipboard('http://localhost:8080', this)"
+                class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition"
+              >
+                <i class="fas fa-copy mr-2"></i>Copy
+              </button>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4 text-sm">
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div class="font-bold mb-1">Frontend</div>
+              <div class="opacity-90">Port 8080</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div class="font-bold mb-1">Backend API</div>
+              <div class="opacity-90">Port 8000</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+              <div class="font-bold mb-1">Embedder Service</div>
+              <div class="opacity-90">Port 9100</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div
+          class="mt-12 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-6"
+        >
+          <h3 class="text-xl font-bold text-yellow-900 mb-4">
+            <i class="fas fa-tools mr-2"></i>Troubleshooting
+          </h3>
+          <div class="space-y-4">
+            <details class="bg-white rounded-lg p-4">
+              <summary class="font-semibold cursor-pointer text-gray-900">
+                Ollama connection error
+              </summary>
+              <p class="mt-2 text-gray-700 text-sm">
+                Make sure Ollama is running:
+                <code class="bg-gray-100 px-2 py-1 rounded">ollama serve</code
+                ><br />
+                Check if it's accessible:
+                <code class="bg-gray-100 px-2 py-1 rounded"
+                  >curl http://localhost:11434</code
+                >
+              </p>
+            </details>
+
+            <details class="bg-white rounded-lg p-4">
+              <summary class="font-semibold cursor-pointer text-gray-900">
+                Port already in use
+              </summary>
+              <p class="mt-2 text-gray-700 text-sm">
+                Stop conflicting services or modify the ports in the compose
+                file.<br />
+                Check what's using a port:
+                <code class="bg-gray-100 px-2 py-1 rounded">lsof -i :8080</code>
+                (Mac/Linux)
+              </p>
+            </details>
+
+            <details class="bg-white rounded-lg p-4">
+              <summary class="font-semibold cursor-pointer text-gray-900">
+                Docker build fails
+              </summary>
+              <p class="mt-2 text-gray-700 text-sm">
+                Ensure you have enough disk space (at least 10GB free).<br />
+                Try:
+                <code class="bg-gray-100 px-2 py-1 rounded"
+                  >docker system prune</code
+                >
+                to clean up old images.
+              </p>
+            </details>
+          </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="mt-12 bg-white rounded-2xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">
+            <i class="fas fa-rocket text-purple-600 mr-2"></i>Next Steps
+          </h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <a
+              href="docs.html"
+              class="group bg-gray-50 rounded-xl p-6 hover:bg-purple-50 transition"
+            >
+              <i class="fas fa-book text-3xl text-purple-600 mb-3"></i>
+              <h4 class="font-bold text-gray-900 mb-2">Read the Docs</h4>
+              <p class="text-sm text-gray-600">
+                Learn about all features and configurations
+              </p>
+            </a>
+
+            <a
+              href="api.html"
+              class="group bg-gray-50 rounded-xl p-6 hover:bg-purple-50 transition"
+            >
+              <i class="fas fa-code text-3xl text-purple-600 mb-3"></i>
+              <h4 class="font-bold text-gray-900 mb-2">API Reference</h4>
+              <p class="text-sm text-gray-600">
+                Integrate SageAI into your workflow
+              </p>
+            </a>
+
+            <a
+              href="https://github.com/WhisperNet/research-paper-rag-assessment/tree/submission/ridowan"
+              target="_blank"
+              class="group bg-gray-50 rounded-xl p-6 hover:bg-purple-50 transition"
+            >
+              <i class="fab fa-github text-3xl text-purple-600 mb-3"></i>
+              <h4 class="font-bold text-gray-900 mb-2">Contribute</h4>
+              <p class="text-sm text-gray-600">Join the community on GitHub</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <div
+              class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-brain text-white text-sm"></i>
+            </div>
+            <span class="text-xl font-bold text-white">SageAI</span>
+          </div>
+          <div class="text-sm">
+            © 2025 SageAI. Built with ❤️ for researchers.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function switchTab(os) {
+        // Remove active class from all tabs
+        document
+          .querySelectorAll('.os-tab')
+          .forEach((tab) => tab.classList.remove('active'));
+        document
+          .querySelectorAll('.tab-content')
+          .forEach((content) => content.classList.remove('active'));
+
+        // Add active class to selected tab
+        event.target.closest('.os-tab').classList.add('active');
+        document.getElementById(os + '-tab').classList.add('active');
+      }
+
+      function copyToClipboard(text, button) {
+        navigator.clipboard.writeText(text).then(() => {
+          const originalHTML = button.innerHTML;
+          button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          button.style.background = 'rgba(34, 197, 94, 0.2)';
+
+          setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.style.background = 'rgba(255, 255, 255, 0.1)';
+          }, 2000);
+        });
+      }
+
+      // Smooth scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
